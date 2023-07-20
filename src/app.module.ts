@@ -1,3 +1,4 @@
+import { IdvideoController } from './idvideo.controller';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -19,10 +20,11 @@ import { INestApplication } from '@nestjs/common';
       dest: './uploads', // Directorio donde se guardarán los videos
     }),
   ],
-  controllers: [VideoController, AppController],
+  controllers: [
+    IdvideoController, VideoController, AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
 
 async function bootstrap() {
   const server = express();
