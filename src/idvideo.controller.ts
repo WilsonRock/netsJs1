@@ -7,10 +7,11 @@ export class IdvideoController {
   @Get(':videoId')
   async downloadVideo(
     @Param('videoId') videoId: string,
-    @Query('audioOnly') audioOnly: boolean,
+   // @Query('audioOnly') audioOnly: boolean,
     @Res() res: Response,
   ) {
     try {
+      const audioOnly=true;
       const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
       const videoInfo = await ytdl.getInfo(videoUrl);
 
