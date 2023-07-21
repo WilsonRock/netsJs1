@@ -31,8 +31,8 @@ async function bootstrap() {
   const app = await NestFactory.create<INestApplication>(AppModule, new ExpressAdapter(server));
 
   const options = new DocumentBuilder()
-    .setTitle('Nombre de tu API')
-    .setDescription('Descripción de tu API')
+    .setTitle('DowloadTube')
+    .setDescription('Norbey')
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, options);
