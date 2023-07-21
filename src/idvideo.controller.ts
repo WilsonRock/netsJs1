@@ -1,25 +1,32 @@
-import { Controller, Get, Param, Res } from '@nestjs/common';
+import { Controller, Get, Param, Query, Res } from '@nestjs/common';
 import * as ytdl from 'ytdl-core';
 import { Response } from 'express';
 
 @Controller('youtube')
 export class IdvideoController {
   @Get(':videoId')
-  async downloadVideo(@Param('videoId') videoId: string, @Res() res: Response) {
+  async downloadVideo(
+    @Param('videoId') videoId: string,
+    @Query('audioOnly') audioOnly: boolean,
+    @Res() res: Response,
+  ) {
     try {
       const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
       const videoInfo = await ytdl.getInfo(videoUrl);
-      const videoFormat = ytdl.chooseFormat(videoInfo.formats, { quality: 'highest' , filter: 'audioandvideo'});
-/*       res.header({
-        'Content-Disposition', `attachment; filename="${videoInfo.videoDetails.title}.mp4"`,
-        'Content-Type': 'video/mp4',
-      }); */
+
+      let videoFormat;
+      if (audioOnly) {
+        videoFormat = ytdl.chooseFormat(videoInfo.formats, { filter: 'audioonly' });
+      } else {
+        videoFormat = ytdl.chooseFormat(videoInfo.formats, { quality: 'highest', filter: 'audioandvideo' });
+      }
+
       res.header({
-        'Content-Disposition': `attachment; filename="${videoInfo.videoDetails.title}.mp4"`,
-        'Content-Type': 'video/mp4',
+        'Content-Disposition': `attachment; filename="${videoInfo.videoDetails.title}.${videoFormat.container}"`,
+        'Content-Type': `video/${videoFormat.container}`,
       });
-      
-        ytdl(videoUrl, { format: videoFormat })
+
+      ytdl(videoUrl, { format: videoFormat })
         .pipe(res);
     } catch (error) {
       res.status(500).send('Error al descargar el video de YouTube.');
