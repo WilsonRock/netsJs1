@@ -2,7 +2,7 @@ import { Controller, Get, Param, Query, Res } from '@nestjs/common';
 import * as ytdl from 'ytdl-core';
 import { Response } from 'express';
 
-@Controller('youtube')
+@Controller('OnlyAudio')
 export class IdvideoController {
   @Get(':videoId')
   async downloadVideo(

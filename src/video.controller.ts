@@ -2,7 +2,7 @@ import { Controller, Get, Param, Query, Res } from '@nestjs/common';
 import { Response } from 'express';
 import * as ytdl from 'ytdl-core';
 
-@Controller('videos')
+@Controller('OnlyDesktop')
 export class VideoController {
   @Get(':videoLink')
   async downloadVideo(@Param('videoLink') videoLink: string, @Res() res: Response) {

@@ -1,3 +1,4 @@
+import { IsvideoController } from './isvideo.controller';
 import { IdvideoController } from './idvideo.controller';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
@@ -21,6 +22,7 @@ import { INestApplication } from '@nestjs/common';
     }),
   ],
   controllers: [
+    IsvideoController,
     IdvideoController, VideoController, AppController],
   providers: [AppService],
 })
