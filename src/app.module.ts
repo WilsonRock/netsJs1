@@ -35,7 +35,11 @@ async function bootstrap() {
    
     // Configura el middleware de CORS
     app.use(cors());;
-
+    app.enableCors({
+      origin: 'http://localhost:8100', // Cambia esto al dominio correcto de tu aplicación Angular
+      methods: 'GET', // Ajusta los métodos HTTP permitidos según tus necesidades
+      allowedHeaders: '*', // Ajusta las cabeceras permitidas según tus necesidades
+    });
 
   const options = new DocumentBuilder()
     .setTitle('DowloadTube')
