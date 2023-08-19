@@ -12,7 +12,8 @@ import { ExpressAdapter } from '@nestjs/platform-express';
 import { VideoController } from './video.controller';
 import * as express from 'express';
 import { INestApplication } from '@nestjs/common';
-
+// Importa el módulo cors
+import * as cors from 'cors';
 @Module({
   imports: [
     AuthModule,
@@ -31,6 +32,10 @@ export class AppModule { }
 async function bootstrap() {
   const server = express();
   const app = await NestFactory.create<INestApplication>(AppModule, new ExpressAdapter(server));
+   
+    // Configura el middleware de CORS
+    app.use(cors());;
+
 
   const options = new DocumentBuilder()
     .setTitle('DowloadTube')
